@@ -1,30 +1,23 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Button } from 'react-native';
 
 export default function App() {
-  const [state, setState] = useState("nosso primeiro state!");
+  const [state, setState] = useState(0);
   console.log("nosso state:", state);
-  let count= 0; 
-  function somador(){
-    count++;
-    console.log("valor do count", count);
-  }
+  console.log("nossa funcao de alterar o state:", setState)
   return (
-    <View style={styles.container}>
-      <Text>{count}</Text>
-      <Button title="aumentar" onPress={somador}/>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text>{state}</Text>
+      <Button title="aumentar" onPress={()=>setState(state +1)}/>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: '#fa7f21',
+    alignItems:"center",
     justifyContent: 'center',
   },
 });
-
-//propriedades === props
-//estados === states
