@@ -1,23 +1,32 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, SafeAreaView, Button } from 'react-native';
+import React from "react";
+import { SafeAreaView, View, StyleSheet } from "react-native";
 
 export default function App() {
-  const [state, setState] = useState(0);
-  console.log("nosso state:", state);
-  console.log("nossa funcao de alterar o state:", setState)
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>{state}</Text>
-      <Button title="aumentar" onPress={()=>setState(state +1)}/>
+    <SafeAreaView style={styles.background}>
+      <View style={styles.header}>
+        <View style={styles.title}></View>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#fa7f21',
-    alignItems:"center",
-    justifyContent: 'center',
+    backgroundColor: "red",
+    paddingTop: 30,
+  },
+  header: {
+    flexDirection: "row-reverse",
+    width: "100%",
+    height: 200,
+    backgroundColor: "blue",
+    marginVertical: 20,
+  },
+  title: {
+    width: 200,
+    height: 200,
+    backgroundColor: "yellow",
   },
 });
