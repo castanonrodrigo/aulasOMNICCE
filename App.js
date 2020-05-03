@@ -6,6 +6,8 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 
 import * as screen from "./src/constants/dimensions";
@@ -35,6 +37,9 @@ export default function App() {
           autoCorrect={false}
         />
       </KeyboardAvoidingView>
+      <TouchableOpacity style={styles.enterButton}>
+        <Text style={styles.enterButtonText}>ENTRAR</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -74,5 +79,20 @@ const styles = StyleSheet.create({
     color: "#333",
     fontSize: screen.height * 0.025,
     paddingHorizontal: screen.width * 0.03,
+  },
+  enterButton: {
+    width: screen.width * 0.2,
+    height: screen.height * 0.06,
+    backgroundColor: "#75FFAF",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: screen.width * 0.02,
+    marginVertical: screen.height * 0.02,
+  },
+  enterButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: screen.width * 0.04,
   },
 });
