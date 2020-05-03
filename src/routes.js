@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './screens/LoginScreen'
 import StatsScreen from './screens/StatsScreen';
 import FeedScreen from './screens/FeedScreen';
-import {Ionicons, MaterialIcons} from '@expo/vector-icons';
+import {MaterialCommunityIcons, Entypo} from '@expo/vector-icons';
 
 
 const Stack = createStackNavigator();
@@ -20,11 +20,11 @@ function LoggedInFlow(){
         }}>
             <Tab.Screen name="feed" component={FeedScreen} 
             options={{
-                tabBarIcon:()=><MaterialIcons name="rss-feed" size={27} color="gray"/>
+                tabBarIcon:({focused}) =><MaterialCommunityIcons name="clipboard-text-outline" size={30} color={focused ?"#75ffaf":"gray"}/>
             }}/>
             <Tab.Screen name="stats" component={StatsScreen} 
             options={{
-                tabBarIcon: ()=><Ionicons name="md-stats"size={27} color="gray"/>
+                tabBarIcon: ({focused}) => <Entypo name="line-graph"size={30} color={focused?"#75ffaf":"gray"}/>
             }} />
         </Tab.Navigator>
     )
