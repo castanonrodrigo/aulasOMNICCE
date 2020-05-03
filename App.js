@@ -10,48 +10,10 @@ import {
   Text,
 } from "react-native";
 import * as screen from "./src/constants/dimensions";
+import StatisticsScreen from "./StatisticsScreen";
 
 export default function App() {
-  const [userName, setUserName] = useState("");
-
-  const handleChangeText = (newText) => {
-    setUserName(newText);
-  };
-
-  return (
-    <SafeAreaView>
-      <View style={styles.header}>
-        <Image
-          source={require("./src/assets/images/covidTitle.png")}
-          style={styles.titleImage}
-          resizeMode={"contain"}
-        />
-      </View>
-      <View>
-        <Image
-          source={require("./src/assets/images/corona-doctor.gif")}
-          style={styles.gifImage}
-          resizeMode={"cover"}
-        />
-      </View>
-      <KeyboardAvoidingView behavior={"position"}>
-        <TextInput
-          style={styles.userNameInput}
-          placeholder={"@USUÁRIO"}
-          autoCapitalize={"none"}
-          autoCorrect={false}
-          value={userName}
-          onChangeText={handleChangeText}
-        />
-      </KeyboardAvoidingView>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => console.log("Botão Clicado")}
-      >
-        <Text style={styles.submitButtonText}>ENTRAR</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
+  return <StatisticsScreen />;
 }
 
 const styles = StyleSheet.create({
