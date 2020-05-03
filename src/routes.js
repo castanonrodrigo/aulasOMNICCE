@@ -20,10 +20,12 @@ function LoggedInFlow(){
         }}>
             <Tab.Screen name="feed" component={FeedScreen} 
             options={{
+                tabBarLabel:"Feed",
                 tabBarIcon:({focused}) =><MaterialCommunityIcons name="clipboard-text-outline" size={30} color={focused ?"#75ffaf":"gray"}/>
             }}/>
             <Tab.Screen name="stats" component={StatsScreen} 
             options={{
+                tabBarLabel:"Estatísticas",
                 tabBarIcon: ({focused}) => <Entypo name="line-graph"size={30} color={focused?"#75ffaf":"gray"}/>
             }} />
         </Tab.Navigator>

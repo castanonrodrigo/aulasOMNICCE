@@ -7,16 +7,35 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Text
+  Text,
+  AsyncStorage,
+  Alert
 } from "react-native";
 import * as screen from "../constants/dimensions";
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation:{navigate}}) {
   const [userName, setUserName] = useState("");
 
   const handleChangeText = (newText) => {
     setUserName(newText);
   };
+
+  async function storeUser(){
+      try{
+        await AsyncStorage.setItem("user", userName);
+      }catch(e){
+          console.log(e);
+      }
+  }
+
+  function Login(){
+      if(userName === ""){
+        Alert.alert("Você precisa de um nome de usuário!");
+      }else{
+          storeUser();
+          consoleUser();
+      }
+  }
 
   return (
     <SafeAreaView>
@@ -46,7 +65,7 @@ export default function LoginScreen({navigation}) {
       </KeyboardAvoidingView>
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => console.log(navigation.navigate("Logged"))}
+        onPress={() => Login()}
       >
         <Text style={styles.submitButtonText}>ENTRAR</Text>
       </TouchableOpacity>
