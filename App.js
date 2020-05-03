@@ -1,5 +1,12 @@
 import React from "react";
-import { SafeAreaView, View, StyleSheet, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import * as screen from "./src/constants/dimensions";
 
@@ -20,6 +27,14 @@ export default function App() {
           resizeMode="cover"
         />
       </View>
+      <KeyboardAvoidingView behavior="position">
+        <TextInput
+          style={styles.nameInput}
+          placeholder="@USUÁRIO"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -47,5 +62,17 @@ const styles = StyleSheet.create({
   gifImage: {
     width: screen.width * 1,
     height: screen.height * 0.45,
+  },
+  nameInput: {
+    // borderWidth: 1,
+    width: screen.width * 0.9,
+    height: screen.height * 0.05,
+    alignSelf: "center",
+    marginVertical: screen.height * 0.02,
+    backgroundColor: "#F5F5F5",
+    borderRadius: screen.width * 0.02,
+    color: "#333",
+    fontSize: screen.height * 0.025,
+    paddingHorizontal: screen.width * 0.03,
   },
 });
