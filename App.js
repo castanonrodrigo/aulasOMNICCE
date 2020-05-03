@@ -1,14 +1,55 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, SafeAreaView, Button } from 'react-native';
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Text,
+} from "react-native";
+import * as screen from "./src/constants/dimensions";
 
 export default function App() {
-  const [state, setState] = useState(0);
-  console.log("nosso state:", state);
-  console.log("nossa funcao de alterar o state:", setState)
+  const [userName, setUserName] = useState("");
+
+  const handleChangeText = (newText) => {
+    setUserName(newText);
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>{state}</Text>
-      <Button title="aumentar" onPress={()=>setState(state +1)}/>
+    <SafeAreaView>
+      <View style={styles.header}>
+        <Image
+          source={require("./src/assets/images/covidTitle.png")}
+          style={styles.titleImage}
+          resizeMode={"contain"}
+        />
+      </View>
+      <View>
+        <Image
+          source={require("./src/assets/images/corona-doctor.gif")}
+          style={styles.gifImage}
+          resizeMode={"cover"}
+        />
+      </View>
+      <KeyboardAvoidingView behavior={"position"}>
+        <TextInput
+          style={styles.userNameInput}
+          placeholder={"@USUÁRIO"}
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          value={userName}
+          onChangeText={handleChangeText}
+        />
+      </KeyboardAvoidingView>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => console.log("Botão Clicado")}
+      >
+        <Text style={styles.submitButtonText}>ENTRAR</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -16,8 +57,43 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fa7f21',
-    alignItems:"center",
-    justifyContent: 'center',
+  },
+  header: {
+    marginTop: screen.height * 0.08,
+    alignItems: "flex-end",
+  },
+  titleImage: {
+    width: screen.width * 0.8,
+    height: screen.height * 0.2,
+    marginRight: screen.width * 0.04,
+  },
+  gifImage: {
+    width: screen.width * 1,
+    height: screen.height * 0.45,
+  },
+  userNameInput: {
+    width: screen.width * 0.9,
+    height: screen.height * 0.05,
+    alignSelf: "center",
+    marginVertical: screen.height * 0.03,
+    backgroundColor: "#F5F5F5",
+    borderRadius: screen.width * 0.02,
+    color: "#333",
+    fontSize: screen.height * 0.025,
+    paddingHorizontal: screen.width * 0.03,
+  },
+  submitButton: {
+    width: screen.width * 0.2,
+    height: screen.height * 0.06,
+    backgroundColor: "#75FFAF",
+    alignSelf: "center",
+    borderRadius: screen.width * 0.02,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  submitButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: screen.width * 0.04,
   },
 });
