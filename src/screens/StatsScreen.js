@@ -7,10 +7,12 @@ import {
   FlatList,
   Text,
 } from "react-native";
+
 import * as screen from "../constants/dimensions";
+import CountryBoxItem from "../components/CountryBoxItem";
 
 export default function Stats() {
-  const countryName = [{ country: "Brazil" }, { country: "Israel " }];
+  const countryName = [{ country: "Brazil" }, { country: "Israel" }];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +24,7 @@ export default function Stats() {
       </View>
       <FlatList
         data={countryName}
-        renderItem={({ item }) => <Text>{item.country}</Text>} // {item} ---> element.item = item
+        renderItem={CountryBoxItem}
         keyExtractor={(item) => item.country}
       />
     </SafeAreaView>
