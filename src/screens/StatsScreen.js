@@ -1,8 +1,16 @@
 import React from "react";
-import { SafeAreaView, View, StyleSheet, Image } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Image,
+  FlatList,
+  Text,
+} from "react-native";
 import * as screen from "../constants/dimensions";
 
 export default function Stats() {
+  const countryName = [{ country: "Brazil" }, { country: "Israel " }];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -12,6 +20,13 @@ export default function Stats() {
           resizeMode={"contain"}
         />
       </View>
+      <FlatList
+        data={countryName}
+        renderItem={(element) => {
+          console.log(element);
+          return <Text>{element.item.country}</Text>;
+        }}
+      />
     </SafeAreaView>
   );
 }
