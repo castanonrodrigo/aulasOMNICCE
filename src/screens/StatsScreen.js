@@ -22,10 +22,8 @@ export default function Stats() {
       </View>
       <FlatList
         data={countryName}
-        renderItem={(element) => {
-          console.log(element);
-          return <Text>{element.item.country}</Text>;
-        }}
+        renderItem={({ item }) => <Text>{item.country}</Text>} // {item} ---> element.item = item
+        keyExtractor={(item) => item.country}
       />
     </SafeAreaView>
   );
