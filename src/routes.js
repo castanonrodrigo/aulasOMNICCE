@@ -53,16 +53,13 @@ function LoggedInFlow() {
 
 export default function () {
   const [hasToken, setHasToken] = useState(null);
-  const [loadingToken, setLoadingToken] = useState(true);
-
   async function tryLocalLoginIn() {
     try {
       const asyncUser = await AsyncStorage.getItem("user");
       asyncUser === null ? setHasToken(false) : setHasToken(true);
     } catch (e) {
       console.log(e);
-    } finally {
-      setLoadingToken(false);
+      setHasToken(false);
     }
   }
 
@@ -70,18 +67,14 @@ export default function () {
     tryLocalLoginIn();
   }, []);
 
-  if (loadingToken) {
-    return null;
-  }
-
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        {hasToken === true ? (
-          <Stack.Screen name="Logged" component={LoggedInFlow} />
-        ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
-        )}
+      <Stack.Navigator
+        headerMode="none"
+        initialRouteName={hasToken === true ? "Logged" : "Login"}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Logged" component={LoggedInFlow} />
       </Stack.Navigator>
     </NavigationContainer>
   );
