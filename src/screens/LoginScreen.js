@@ -33,7 +33,7 @@ export default function LoginScreen({ navigation: { navigate } }) {
       Alert.alert("Você precisa de um nome de usuário!");
     } else {
       storeUser();
-      // navigate("feed");
+      navigate("Logged");
     }
   }
 

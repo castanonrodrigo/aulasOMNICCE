@@ -1,10 +1,19 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Button, AsyncStorage } from "react-native";
 
-// import { Container } from './styles';
-
-const FeedScreen = () => {
-  return <View />;
-};
-
-export default FeedScreen;
+export default function FeedScreen({ navigation: { navigate } }) {
+  async function Logout() {
+    try {
+      await AsyncStorage.removeItem("user");
+    } catch (e) {
+      console.log(e);
+    } finally {
+      navigate("Login");
+    }
+  }
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Button title="LOGOUT" onPress={() => Logout()} />
+    </View>
+  );
+}
