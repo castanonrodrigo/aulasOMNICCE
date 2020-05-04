@@ -1,10 +1,10 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
 
 // import { Container } from './styles';
 
 const StatsScreen = () => {
   return <View />;
-}
+};
 
 export default StatsScreen;

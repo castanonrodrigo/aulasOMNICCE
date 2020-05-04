@@ -9,36 +9,36 @@ import {
   TouchableOpacity,
   Text,
   AsyncStorage,
-  Alert
+  Alert,
 } from "react-native";
 import * as screen from "../constants/dimensions";
 
-export default function LoginScreen({navigation:{navigate}}) {
+export default function LoginScreen({ navigation: { navigate } }) {
   const [userName, setUserName] = useState("");
 
   const handleChangeText = (newText) => {
     setUserName(newText);
   };
 
-  async function storeUser(){
-      try{
-        await AsyncStorage.setItem("user", userName);
-      }catch(e){
-          console.log(e);
-      }
+  async function storeUser() {
+    try {
+      await AsyncStorage.setItem("user", userName);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  function Login(){
-      if(userName === ""){
-        Alert.alert("Você precisa de um nome de usuário!");
-      }else{
-          storeUser();
-          consoleUser();
-      }
+  function Login() {
+    if (userName === "") {
+      Alert.alert("Você precisa de um nome de usuário!");
+    } else {
+      storeUser();
+      // navigate("Login")
+    }
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image
           source={require("../assets/images/covidTitle.png")}
@@ -63,10 +63,7 @@ export default function LoginScreen({navigation:{navigate}}) {
           onChangeText={handleChangeText}
         />
       </KeyboardAvoidingView>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => Login()}
-      >
+      <TouchableOpacity style={styles.submitButton} onPress={() => Login()}>
         <Text style={styles.submitButtonText}>ENTRAR</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -76,6 +73,7 @@ export default function LoginScreen({navigation:{navigate}}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
   header: {
     marginTop: screen.height * 0.08,
