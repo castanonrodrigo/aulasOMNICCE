@@ -61,6 +61,7 @@ export default function () {
       asyncUser === null ? setHasToken(false) : setHasToken(true);
     } catch (e) {
       console.log(e);
+      setHasToken(false);
     } finally {
       setLoadingToken(false);
     }
@@ -76,12 +77,12 @@ export default function () {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        {hasToken === true ? (
-          <Stack.Screen name="Logged" component={LoggedInFlow} />
-        ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
-        )}
+      <Stack.Navigator
+        headerMode="none"
+        initialRouteName={hasToken ? "Logged" : "Login"}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Logged" component={LoggedInFlow} />
       </Stack.Navigator>
     </NavigationContainer>
   );
