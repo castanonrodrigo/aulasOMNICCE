@@ -14,6 +14,8 @@ export default function FeedScreen({ navigation: { navigate } }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Button title="LOGOUT" onPress={() => Logout()} />
+      <Button title="fazer um comentário" onPress={() => navigate("comment")} />
+      <Button title="fazer um post" onPress={() => navigate("posting")} />
     </View>
   );
 }

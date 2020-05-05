@@ -6,10 +6,22 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import StatsScreen from "./screens/StatsScreen";
 import FeedScreen from "./screens/FeedScreen";
+import PostingScreen from "./screens/PostingScreen";
+import CommentScreen from "./screens/CommentScreen";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function FeedFlow() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="mainFeed" component={FeedScreen} />
+      <Stack.Screen name="comment" component={CommentScreen} />
+      <Stack.Screen name="posting" component={PostingScreen} />
+    </Stack.Navigator>
+  );
+}
 
 function LoggedInFlow() {
   return (
@@ -21,7 +33,7 @@ function LoggedInFlow() {
     >
       <Tab.Screen
         name="feed"
-        component={FeedScreen}
+        component={FeedFlow}
         options={{
           tabBarLabel: "Feed",
           tabBarIcon: ({ focused }) => (
