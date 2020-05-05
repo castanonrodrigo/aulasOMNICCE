@@ -42,7 +42,6 @@ export default function FeedScreen({ navigation: { navigate } }) {
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <Post data={item} />}
       />
-      <Button title="LOGOUT" onPress={() => Logout()} />
     </SafeAreaView>
   );
 }
