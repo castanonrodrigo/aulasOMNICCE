@@ -10,10 +10,12 @@ const Post = ({ data }) => {
       <Text>{usuario}</Text>
       <Text>{titulo}</Text>
       <Text>{texto}</Text>
-      <Image
-        style={styles.image}
-        source={{ uri: `https://fluxofullstack.herokuapp.com${imagem}` }}
-      />
+      {imagem && (
+        <Image
+          style={styles.image}
+          source={{ uri: `https://fluxofullstack.herokuapp.com${imagem}` }}
+        />
+      )}
     </View>
   );
 };
