@@ -13,17 +13,21 @@ import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function FeedFlow() {
+function LoggedInFlow() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="mainFeed" component={FeedScreen} />
+      <Stack.Screen
+        name="mainFeed"
+        component={Tabflow}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="comment" component={CommentScreen} />
       <Stack.Screen name="posting" component={PostingScreen} />
     </Stack.Navigator>
   );
 }
 
-function LoggedInFlow() {
+function Tabflow() {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -33,7 +37,7 @@ function LoggedInFlow() {
     >
       <Tab.Screen
         name="feed"
-        component={FeedFlow}
+        component={FeedScreen}
         options={{
           tabBarLabel: "Feed",
           tabBarIcon: ({ focused }) => (
