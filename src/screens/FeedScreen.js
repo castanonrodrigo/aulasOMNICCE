@@ -38,6 +38,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
     >
       <FlatList
         data={posts}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <Post data={item} />}
       />
