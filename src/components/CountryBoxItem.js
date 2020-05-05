@@ -2,19 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as screen from "../constants/dimensions";
 
-export default function CountryBoxItem() {
+export default function CountryBoxItem({ countryData }) {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text style={styles.label}>Brazil</Text>
-        <Text style={styles.label}>BR</Text>
+        <Text style={styles.label}>{countryData.Country}</Text>
+        <Text style={styles.label}>{countryData.CountryCode}</Text>
       </View>
-      <Text>Novos casos confirmados: 7502</Text>
-      <Text>Total de casos confirmados: 87187</Text>
-      <Text>Novas morte: 493</Text>
-      <Text>Total mortes: 6006</Text>
-      <Text>Novos recuperados: 1803</Text>
-      <Text>Total de recuperados: 35935</Text>
+      <Text>Novos casos confirmados: {countryData.NewConfirmed}</Text>
+      <Text>Total de casos confirmados: {countryData.TotalConfirmed}</Text>
+      <Text>Novas mortes: {countryData.NewDeaths}</Text>
+      <Text>Total mortes: {countryData.TotalDeaths}</Text>
+      <Text>Novos recuperados: {countryData.NewRecovered}</Text>
+      <Text>Total de recuperados: {countryData.TotalRecovered}</Text>
     </View>
   );
 }
