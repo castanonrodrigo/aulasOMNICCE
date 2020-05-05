@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#dadada",
     marginTop: 10,
     width: width * 0.9,
-    //height: height * 0.5,
     padding: width * 0.03,
   },
   image: {
