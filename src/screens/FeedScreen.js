@@ -7,7 +7,7 @@ import {
   Text,
 } from "react-native";
 import api from "../services/api";
-
+import Post from "../components/Post";
 export default function FeedScreen({ navigation: { navigate } }) {
   const [posts, setPosts] = useState(null);
 
@@ -39,7 +39,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
       <FlatList
         data={posts}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <Text>{item.usuario}</Text>}
+        renderItem={({ item }) => <Post data={item} />}
       />
       <Button title="LOGOUT" onPress={() => Logout()} />
     </SafeAreaView>
