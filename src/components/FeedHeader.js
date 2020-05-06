@@ -4,15 +4,21 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { height, width } from "../constants/dimensions";
 // import { Container } from './styles';
 
-const FeedHeader = () => {
+const FeedHeader = ({ navigate, count }) => {
   return (
-    <View style={StyleSheet.container}>
-      <Image
-        source={require("../assets/images/covidTitle_small.png")}
-        style={styles.image}
-        resizeMode="contain"
-      />
-      <TouchableOpacity style={styles.button}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          source={require("../assets/images/covidTitle_small.png")}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text>{count}</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigate("posting")}
+      >
         <Text style={styles.text}>
           O que está acontecendo na sua quarentena?
         </Text>
@@ -25,11 +31,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    flexDirection: "row",
+  },
   image: {
     width: width * 0.55,
     height: height * 0.05,
   },
   button: {
+    marginTop: height * 0.01,
     borderWidth: 2,
     borderRadius: 15,
     borderColor: "#39cb7f",
