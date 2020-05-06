@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  View,
+  Text,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -16,16 +16,22 @@ import { width, height } from "../constants/dimensions";
 
 export default function FeedScreen({ navigation: { navigate } }) {
   const [posts, setPosts] = useState(null);
+  const [loadingPosts, setLoadingPosts] = useState(true);
   const [postCount, setPostCount] = useState(null);
+
   async function loadPosts() {
+    setLoadingPosts(true);
     try {
       const response = await api.get("/postagens/");
       setPosts(response.data);
       setPostCount(response.data.length);
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoadingPosts(false);
     }
   }
+
   useEffect(() => {
     loadPosts();
   }, []);
@@ -42,16 +48,19 @@ export default function FeedScreen({ navigation: { navigate } }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponent={
-          <FeedHeader navigate={navigate} count={postCount} />
-        }
-        data={posts}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <Post data={item} />}
-      />
-      <TouchableOpacity style={styles.reloadButton}>
+      {loadingPosts ? null : (
+        <FlatList
+          ListHeaderComponent={
+            <FeedHeader navigate={navigate} count={postCount} />
+          }
+          data={posts}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <Post data={item} />}
+        />
+      )}
+
+      <TouchableOpacity style={styles.reloadButton} onPress={() => loadPosts()}>
         <MaterialCommunityIcons
           name="reload"
           size={width * 0.07}
