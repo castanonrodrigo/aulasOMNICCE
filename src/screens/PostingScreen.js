@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import {
   SafeAreaView,
   TextInput,
@@ -7,14 +7,26 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
+  Button,
 } from "react-native";
 
 import { height, width } from "../constants/dimensions";
 import { Entypo } from "@expo/vector-icons";
 
-const PostingScreen = () => {
+const PostingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => console.log("Ate que funcina")}
+          title="Update count"
+        />
+      ),
+    });
+  }, [navigation]);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

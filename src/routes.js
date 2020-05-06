@@ -25,13 +25,13 @@ function LoggedInFlow() {
       <Stack.Screen
         name="posting"
         component={PostingScreen}
-        // options={{
-        //   headerTitle: "HELLO",
-        //   headerTitleStyle: {
-        //     fontWeight: "bold",
-        //   },
-        //   headerTitleAlign: "center",
-        // }}
+        options={{
+          headerTitleAlign: "center",
+          title: "Criar Publicação",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
       />
     </Stack.Navigator>
   );
