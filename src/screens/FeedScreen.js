@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: height * 0.06,
+    paddingTop: height * 0.08,
   },
   reloadButton: {
     position: "absolute",

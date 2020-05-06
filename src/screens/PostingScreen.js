@@ -7,19 +7,44 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
+  AsyncStorage,
 } from "react-native";
 
 import { height, width } from "../constants/dimensions";
 import { Entypo } from "@expo/vector-icons";
+import api from "../services/api";
 
 const PostingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
+  async function post() {
+    const postData = {
+      usuario: await AsyncStorage.getItem("user"),
+      titulo: title,
+      texto: text,
+      imagem: null,
+    };
+    const jsonPostData = JSON.stringify(postData);
+    try {
+      const response = await api.post("/postagens/", jsonPostData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      alert("Algum erro ocorreu");
+    }
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.headerPostButton}>
+        <TouchableOpacity
+          style={styles.headerPostButton}
+          onPress={() => post()}
+        >
           <Text style={styles.headerPostButtonText}>POSTAR</Text>
         </TouchableOpacity>
       ),
@@ -76,7 +101,7 @@ const styles = StyleSheet.create({
     height: height * 0.07,
     borderColor: "#75FFAF",
     backgroundColor: "#E8E8E8",
-    color: "#dadada",
+    color: "black",
     borderWidth: 1,
     borderRadius: 10,
     width: width * 0.9,
@@ -88,7 +113,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderColor: "#75FFAF",
     backgroundColor: "#E8E8E8",
-    color: "#dadada",
+    color: "black",
     borderWidth: 1,
     borderRadius: 10,
     height: height * 0.3,
