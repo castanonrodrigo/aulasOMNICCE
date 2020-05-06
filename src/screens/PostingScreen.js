@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
-  Button,
 } from "react-native";
 
 import { height, width } from "../constants/dimensions";
@@ -20,10 +19,9 @@ const PostingScreen = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button
-          onPress={() => console.log("Ate que funcina")}
-          title="Update count"
-        />
+        <TouchableOpacity style={styles.headerPostButton}>
+          <Text style={styles.headerPostButtonText}>POSTAR</Text>
+        </TouchableOpacity>
       ),
     });
   }, [navigation]);
@@ -59,6 +57,19 @@ const PostingScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerPostButton: {
+    backgroundColor: "#75FFAF",
+    width: width * 0.2,
+    height: height * 0.05,
+    borderRadius: width * 0.1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerPostButtonText: {
+    color: "#FFFFFF",
+    fontSize: height * 0.023,
+    fontWeight: "bold",
   },
   titleInput: {
     height: height * 0.07,
