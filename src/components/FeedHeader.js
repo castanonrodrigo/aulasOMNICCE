@@ -13,7 +13,9 @@ const FeedHeader = ({ navigate, count }) => {
           style={styles.image}
           resizeMode="contain"
         />
-        <Text>{count}</Text>
+        <Text style={styles.countText}>
+          {count >= 1 ? `${count} posts` : `${count} post`}
+        </Text>
       </View>
       <TouchableOpacity
         style={styles.button}
@@ -30,12 +32,20 @@ const FeedHeader = ({ navigate, count }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: height * 0.02,
   },
   header: {
     flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  countText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#39cb7f",
+    alignSelf: "center",
   },
   image: {
-    width: width * 0.55,
+    width: width * 0.5,
     height: height * 0.05,
   },
   button: {
