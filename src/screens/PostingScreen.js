@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.1,
     justifyContent: "center",
     alignItems: "center",
+    marginRight: width * 0.03,
   },
   headerPostButtonText: {
     color: "#FFFFFF",

@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, AsyncStorage, FlatList, StyleSheet } from "react-native";
+import {
+  SafeAreaView,
+  AsyncStorage,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import api from "../services/api";
 import Post from "../components/Post";
 import FeedHeader from "../components/FeedHeader";
+import { width, height } from "../constants/dimensions";
 
 export default function FeedScreen({ navigation: { navigate } }) {
   const [posts, setPosts] = useState(null);
@@ -29,6 +39,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
       navigate("Login");
     }
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -40,6 +51,20 @@ export default function FeedScreen({ navigation: { navigate } }) {
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <Post data={item} />}
       />
+      <TouchableOpacity style={styles.reloadButton}>
+        <MaterialCommunityIcons
+          name="reload"
+          size={width * 0.07}
+          color="#FFFFFF"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.logoutButton} onPress={() => Logout()}>
+        <MaterialCommunityIcons
+          name="logout"
+          size={width * 0.07}
+          color="#FFFFFF"
+        />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -47,6 +72,29 @@ export default function FeedScreen({ navigation: { navigate } }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: height * 0.06,
+  },
+  reloadButton: {
+    position: "absolute",
+    top: height * 0.05,
+    left: width * 0.01,
+    width: width * 0.1,
+    height: width * 0.1,
+    borderRadius: (width * 0.1) / 2,
+    backgroundColor: "#75FFAF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logoutButton: {
+    position: "absolute",
+    top: height * 0.05,
+    right: width * 0.01,
+    width: width * 0.1,
+    height: width * 0.1,
+    borderRadius: (width * 0.1) / 2,
+    backgroundColor: "#75FFAF",
     alignItems: "center",
     justifyContent: "center",
   },
