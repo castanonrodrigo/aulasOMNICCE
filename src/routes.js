@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AsyncStorage } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import StatsScreen from "./screens/StatsScreen";
@@ -22,7 +22,17 @@ function LoggedInFlow() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="comment" component={CommentScreen} />
-      <Stack.Screen name="posting" component={PostingScreen} />
+      <Stack.Screen
+        name="posting"
+        component={PostingScreen}
+        // options={{
+        //   headerTitle: "HELLO",
+        //   headerTitleStyle: {
+        //     fontWeight: "bold",
+        //   },
+        //   headerTitleAlign: "center",
+        // }}
+      />
     </Stack.Navigator>
   );
 }
