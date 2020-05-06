@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  Text,
+  ActivityIndicator,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -27,6 +27,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
       setPostCount(response.data.length);
     } catch (e) {
       console.log(e);
+      alert("Não conseguimos pegar os dados da API");
     } finally {
       setLoadingPosts(false);
     }
@@ -48,7 +49,9 @@ export default function FeedScreen({ navigation: { navigate } }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {loadingPosts ? null : (
+      {loadingPosts ? (
+        <ActivityIndicator size="large" />
+      ) : (
         <FlatList
           ListHeaderComponent={
             <FeedHeader navigate={navigate} count={postCount} />
