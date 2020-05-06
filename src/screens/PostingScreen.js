@@ -9,6 +9,7 @@ import {
   Keyboard,
   AsyncStorage,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 import { height, width } from "../constants/dimensions";
 import { Entypo } from "@expo/vector-icons";
@@ -17,24 +18,53 @@ import api from "../services/api";
 const PostingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [image, setImage] = useState(null);
 
   async function post() {
-    const postData = {
-      usuario: await AsyncStorage.getItem("user"),
-      titulo: title,
-      texto: text,
-      imagem: null,
-    };
-    const jsonPostData = JSON.stringify(postData);
-    try {
-      const response = await api.post("/postagens/", jsonPostData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const user = await AsyncStorage.getItem("user");
+    if (image) {
+      const form_data = new FormData();
+      form_data.append("usuario", user);
+      form_data.append("titulo", title);
+      form_data.append("texto", text);
+      form_data.append("imagem", {
+        type: "image/jpg",
+        uri: image,
+        name: "userImage.jpg",
       });
-      console.log(response.data);
-    } catch (error) {
-      alert("Algum erro ocorreu");
+      try {
+        console.log(form_data);
+        const response = await api.post("/postagens/", form_data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        alert(response.data);
+      } catch (error) {
+        error.message;
+      } finally {
+        navigation.navigate("feed");
+      }
+    } else {
+      const postData = {
+        usuario: user,
+        titulo: title,
+        texto: text,
+        imagem: null,
+      };
+      const jsonPostData = JSON.stringify(postData);
+      try {
+        const response = await api.post("/postagens/", jsonPostData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data);
+      } catch (error) {
+        alert("Algum erro ocorreu");
+      } finally {
+        navigation.navigate("feed");
+      }
     }
   }
 
@@ -50,6 +80,22 @@ const PostingScreen = ({ navigation }) => {
       ),
     });
   }, [navigation]);
+
+  async function chooseFromGallery() {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage(result.uri);
+        alert(image);
+      }
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -69,7 +115,7 @@ const PostingScreen = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.imageButton}
-          onPress={() => console.log("Imagem adicionada")}
+          onPress={() => chooseFromGallery()}
         >
           <Entypo name="image" size={24} color="#FFFFFF" />
           <Text style={styles.imageButtonText}>Adicionar Imagem</Text>
