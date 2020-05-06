@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import api from "../services/api";
 import Post from "../components/Post";
+import FeedHeader from "../components/FeedHeader";
 export default function FeedScreen({ navigation: { navigate } }) {
   const [posts, setPosts] = useState(null);
 
@@ -37,6 +38,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
       style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
     >
       <FlatList
+        ListHeaderComponent={<FeedHeader />}
         data={posts}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => String(item.id)}
