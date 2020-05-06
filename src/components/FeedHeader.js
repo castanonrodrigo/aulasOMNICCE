@@ -13,9 +13,11 @@ const FeedHeader = ({ navigate, count }) => {
           style={styles.image}
           resizeMode="contain"
         />
-        <Text style={styles.countText}>
-          {count >= 1 ? `${count} posts` : `${count} post`}
-        </Text>
+        {count && (
+          <Text style={styles.countText}>
+            {count === 1 ? `${count} post` : `${count} posts`}
+          </Text>
+        )}
       </View>
       <TouchableOpacity
         style={styles.button}
