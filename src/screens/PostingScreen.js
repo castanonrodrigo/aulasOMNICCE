@@ -35,6 +35,7 @@ const PostingScreen = ({ navigation }) => {
         texto: text,
         imagem: null,
       };
+      console.log(postData);
       const jsonPostData = JSON.stringify(postData);
       try {
         const response = await api.post("/postagens/", jsonPostData, {
@@ -61,7 +62,7 @@ const PostingScreen = ({ navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, title, text, image]);
 
   async function chooseFromGallery() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
