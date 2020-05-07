@@ -42,6 +42,12 @@ export default function FeedScreen({
     loadPosts();
   }, []);
 
+  useEffect(() => {
+    if (route.params?.newPost) {
+      setPosts([route.params?.newPost, ...posts]);
+    }
+  }, [route.params?.newPost]);
+
   // useEffect(() => {
   //   const unsubscribe = navigation.addListener("focus", () => {
   //     loadPosts();
