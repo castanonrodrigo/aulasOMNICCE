@@ -8,18 +8,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
 
 import api from "../services/api";
 import Post from "../components/Post";
 import FeedHeader from "../components/FeedHeader";
 import { width, height } from "../constants/dimensions";
 
-export default function FeedScreen({
-  navigation: { navigate },
-  navigation,
-  route,
-}) {
+export default function FeedScreen({ navigation: { navigate }, route }) {
   const [posts, setPosts] = useState(null);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [postCount, setPostCount] = useState(null);
@@ -47,13 +42,6 @@ export default function FeedScreen({
       setPosts([route.params?.newPost, ...posts]);
     }
   }, [route.params?.newPost]);
-
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener("focus", () => {
-  //     loadPosts();
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
 
   async function Logout() {
     try {
