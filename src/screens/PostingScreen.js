@@ -58,7 +58,7 @@ const PostingScreen = ({ navigation }) => {
     } catch (error) {
       alert("Ocorreu algum problema...");
     } finally {
-      navigation.navigate("feed");
+      navigation.navigate("feed", { titulo: title });
     }
   }
 
