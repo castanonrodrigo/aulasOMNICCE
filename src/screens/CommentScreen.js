@@ -6,12 +6,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  FlatList,
 } from "react-native";
 
 import { width, height } from "../constants/dimensions";
+import CommentHeader from "../components/CommentHeader";
 
 export default function CommentScreen() {
   const [comment, setComment] = useState("");
+
+  const data = [{ id: 1 }, { id: 2 }];
 
   const handleCommentSubmit = () => {
     alert("Botao clicado");
@@ -19,6 +23,12 @@ export default function CommentScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <FlatList
+        data={data}
+        keyExtractor={(comment) => String(comment.id)}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={CommentHeader}
+      />
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
