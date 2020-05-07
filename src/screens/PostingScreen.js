@@ -22,23 +22,31 @@ const PostingScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   async function post() {
-    const postData = {
-      usuario: await AsyncStorage.getItem("user"),
-      titulo: title,
-      texto: text,
-      imagem: null,
-    };
-    const jsonPostData = JSON.stringify(postData);
-    try {
-      const response = await api.post("/postagens/", jsonPostData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (error) {
-      alert("Algum erro ocorreu");
-    } finally {
-      navigation.navigate("feed");
+    const user = await AsyncStorage.getItem("user");
+    if (image) {
+      const form_data = new FormData();
+      form_data.append("usuario", user);
+      form_data.append("titulo", title);
+      form_data.append("texto", text);
+    } else {
+      const postData = {
+        usuario: user,
+        titulo: title,
+        texto: text,
+        imagem: null,
+      };
+      const jsonPostData = JSON.stringify(postData);
+      try {
+        const response = await api.post("/postagens/", jsonPostData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (error) {
+        alert("Algum erro ocorreu");
+      } finally {
+        navigation.navigate("feed");
+      }
     }
   }
 
@@ -66,9 +74,6 @@ const PostingScreen = ({ navigation }) => {
       });
       if (!result.cancelled) {
         setImage(result.uri);
-        alert(image);
-      } else {
-        alert("Cancelou imagem");
       }
     }
   }
