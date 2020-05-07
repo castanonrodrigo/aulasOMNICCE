@@ -28,6 +28,22 @@ const PostingScreen = ({ navigation }) => {
       form_data.append("usuario", user);
       form_data.append("titulo", title);
       form_data.append("texto", text);
+      form_data.append("imagem", {
+        type: "image/jpg",
+        uri: image,
+        name: "userImage.jpg",
+      });
+      try {
+        const response = await api.post("/postagens/", form_data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } catch (error) {
+        alert("Algum erro ocorreu");
+      } finally {
+        navigation.navigate("feed");
+      }
     } else {
       const postData = {
         usuario: user,
@@ -35,7 +51,6 @@ const PostingScreen = ({ navigation }) => {
         texto: text,
         imagem: null,
       };
-      console.log(postData);
       const jsonPostData = JSON.stringify(postData);
       try {
         const response = await api.post("/postagens/", jsonPostData, {
