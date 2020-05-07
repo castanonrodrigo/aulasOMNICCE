@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,12 +8,16 @@ import StatsScreen from "./screens/StatsScreen";
 import FeedScreen from "./screens/FeedScreen";
 import PostingScreen from "./screens/PostingScreen";
 import CommentScreen from "./screens/CommentScreen";
-import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  Entypo,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function LoggedInFlow() {
+function LoggedInFlow({ navigation }) {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -21,7 +25,14 @@ function LoggedInFlow() {
         component={Tabflow}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="comments" component={CommentScreen} />
+      <Stack.Screen
+        name="comments"
+        component={CommentScreen}
+        options={{
+          headerTitle: false,
+          headerTintColor: "#75ffaf",
+        }}
+      />
       <Stack.Screen
         name="posting"
         component={PostingScreen}
@@ -31,6 +42,19 @@ function LoggedInFlow() {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                height: 24,
+                width: 24,
+                marginVertical: 3,
+                marginHorizontal: 11,
+              }}
+            >
+              <MaterialIcons name="arrow-back" size={24} color="#75ffaf" />
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack.Navigator>
