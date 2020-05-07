@@ -32,9 +32,10 @@ const PostingScreen = ({ navigation }) => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
     } catch (error) {
       alert("Algum erro ocorreu");
+    } finally {
+      navigation.navigate("feed");
     }
   }
 

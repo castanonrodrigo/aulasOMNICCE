@@ -23,7 +23,7 @@ export default function FeedScreen({ navigation: { navigate } }) {
     setLoadingPosts(true);
     try {
       const response = await api.get("/postagens/");
-      setPosts(response.data);
+      setPosts(response.data.reverse());
       setPostCount(response.data.length);
     } catch (e) {
       console.log(e);
