@@ -22,47 +22,43 @@ const PostingScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   async function post() {
-    const user = await AsyncStorage.getItem("user");
-    if (image) {
-      const form_data = new FormData();
-      form_data.append("usuario", user);
-      form_data.append("titulo", title);
-      form_data.append("texto", text);
-      form_data.append("imagem", {
-        type: "image/jpg",
-        uri: image,
-        name: "userImage.jpg",
-      });
-      try {
+    try {
+      const user = await AsyncStorage.getItem("user");
+      if (image) {
+        const form_data = new FormData();
+        form_data.append("usuario", user);
+        form_data.append("titulo", title);
+        form_data.append("texto", text);
+        form_data.append("imagem", {
+          type: "image/jpg",
+          uri: image,
+          name: "userImage.jpg",
+        });
+
         const response = await api.post("/postagens/", form_data, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-      } catch (error) {
-        alert("Algum erro ocorreu");
-      } finally {
-        navigation.navigate("feed");
-      }
-    } else {
-      const postData = {
-        usuario: user,
-        titulo: title,
-        texto: text,
-        imagem: null,
-      };
-      const jsonPostData = JSON.stringify(postData);
-      try {
+      } else {
+        const postData = {
+          usuario: user,
+          titulo: title,
+          texto: text,
+          imagem: null,
+        };
+        const jsonPostData = JSON.stringify(postData);
+
         const response = await api.post("/postagens/", jsonPostData, {
           headers: {
             "Content-Type": "application/json",
           },
         });
-      } catch (error) {
-        alert("Algum erro ocorreu");
-      } finally {
-        navigation.navigate("feed");
       }
+    } catch (error) {
+      alert("Ocorreu algum problema...");
+    } finally {
+      navigation.navigate("feed");
     }
   }
 
