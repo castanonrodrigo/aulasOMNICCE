@@ -40,6 +40,7 @@ const PostingScreen = ({ navigation }) => {
             "Content-Type": "multipart/form-data",
           },
         });
+        navigation.navigate("feed", { newPost: response.data });
       } else {
         const postData = {
           usuario: user,
@@ -54,11 +55,11 @@ const PostingScreen = ({ navigation }) => {
             "Content-Type": "application/json",
           },
         });
+        navigation.navigate("feed", { newPost: response.data });
       }
     } catch (error) {
       alert("Ocorreu algum problema...");
-    } finally {
-      navigation.navigate("feed", { titulo: title });
+      navigation.navigate("feed");
     }
   }
 

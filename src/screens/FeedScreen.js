@@ -24,8 +24,6 @@ export default function FeedScreen({
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [postCount, setPostCount] = useState(null);
 
-  console.log(route);
-
   async function loadPosts() {
     setLoadingPosts(true);
     try {
