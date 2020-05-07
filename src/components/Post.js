@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { width, height } from "../constants/dimensions";
-// import { Container } from './styles';
 
 const Post = ({ data }) => {
   const { usuario, titulo, texto, imagem } = data;
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.user}>{usuario}</Text>
@@ -16,6 +19,16 @@ const Post = ({ data }) => {
           source={{ uri: `https://fluxofullstack.herokuapp.com${imagem}` }}
         />
       )}
+      <TouchableOpacity
+        style={styles.commentButton}
+        onPress={() => navigation.navigate("comments")}
+      >
+        <MaterialCommunityIcons
+          name="comment-text-multiple-outline"
+          size={22}
+          color="#FFFFFF"
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -50,6 +63,17 @@ const styles = StyleSheet.create({
     height: width * 0.8,
     borderRadius: 5,
     backgroundColor: "black",
+  },
+  commentButton: {
+    position: "absolute",
+    width: width * 0.1,
+    height: width * 0.1,
+    borderRadius: (width * 0.1) / 2,
+    backgroundColor: "#75FFAF",
+    marginLeft: width * 0.7,
+    top: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

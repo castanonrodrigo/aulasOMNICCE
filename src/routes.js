@@ -21,7 +21,7 @@ function LoggedInFlow() {
         component={Tabflow}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="comment" component={CommentScreen} />
+      <Stack.Screen name="comments" component={CommentScreen} />
       <Stack.Screen
         name="posting"
         component={PostingScreen}
