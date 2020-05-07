@@ -92,6 +92,7 @@ const PostingScreen = ({ navigation }) => {
       });
       if (!result.cancelled) {
         setImage(result.uri);
+        console.log(result);
         alert(image);
       }
     }
