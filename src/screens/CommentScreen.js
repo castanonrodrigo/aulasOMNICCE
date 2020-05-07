@@ -7,46 +7,54 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 
 import { width, height } from "../constants/dimensions";
 import CommentHeader from "../components/CommentHeader";
 
-export default function CommentScreen() {
+export default function CommentScreen({ route }) {
   const [comment, setComment] = useState("");
 
   const data = [{ id: 1 }, { id: 2 }];
-
+  console.log(route);
   const handleCommentSubmit = () => {
     alert("Botao clicado");
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        keyExtractor={(comment) => String(comment.id)}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={CommentHeader}
-      />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Escreva seu comentário..."
-          value={comment}
-          onChangeText={(newComment) => setComment(newComment)}
-          multiline
-          fontSize={15}
-          autoCorrect={false}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      keyboardVerticalOffset={Platform.OS == "ios" ? height * 0.1 : null}
+    >
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={data}
+          keyExtractor={(comment) => String(comment.id)}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={CommentHeader}
         />
-        <TouchableOpacity
-          style={styles.commentButtonContainer}
-          onPress={handleCommentSubmit}
-        >
-          <Text style={styles.commentButtonText}>Comentar</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Escreva seu comentário..."
+            value={comment}
+            onChangeText={(newComment) => setComment(newComment)}
+            multiline
+            fontSize={17}
+            autoCorrect={false}
+          />
+          <TouchableOpacity
+            style={styles.commentButtonContainer}
+            onPress={handleCommentSubmit}
+          >
+            <Text style={styles.commentButtonText}>Comentar</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
     paddingLeft: width * 0.04,
     paddingRight: width * 0.02,
     width: width,
-    height: height * 0.15,
+    height: height * 0.12,
     borderTopWidth: width * 0.002,
     borderBottomWidth: width * 0.002,
     borderColor: "rgb(56,68,77)",
@@ -92,6 +100,6 @@ const styles = StyleSheet.create({
   commentButtonText: {
     color: "#FFFFFF",
     fontWeight: "bold",
-    fontSize: height * 0.032,
+    fontSize: 21,
   },
 });

@@ -65,7 +65,7 @@ export default function FeedScreen({ navigation: { navigate }, route }) {
           data={posts}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Post data={item} />}
+          renderItem={({ item }) => <Post data={item} onFeed={true} />}
         />
       )}
 

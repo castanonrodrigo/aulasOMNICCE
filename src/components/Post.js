@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { width, height } from "../constants/dimensions";
 
-const Post = ({ data }) => {
+const Post = ({ data, onFeed }) => {
   const { usuario, titulo, texto, imagem } = data;
   const navigation = useNavigation();
   return (
@@ -19,16 +19,18 @@ const Post = ({ data }) => {
           source={{ uri: `https://fluxofullstack.herokuapp.com${imagem}` }}
         />
       )}
-      <TouchableOpacity
-        style={styles.commentButton}
-        onPress={() => navigation.navigate("comments")}
-      >
-        <MaterialCommunityIcons
-          name="comment-text-multiple-outline"
-          size={22}
-          color="#FFFFFF"
-        />
-      </TouchableOpacity>
+      {onFeed && (
+        <TouchableOpacity
+          style={styles.commentButton}
+          onPress={() => navigation.navigate("comments", { data: data })}
+        >
+          <MaterialCommunityIcons
+            name="comment-text-multiple-outline"
+            size={22}
+            color="#FFFFFF"
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
