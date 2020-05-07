@@ -9,6 +9,8 @@ import {
   Keyboard,
   AsyncStorage,
 } from "react-native";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
 
 import { height, width } from "../constants/dimensions";
 import { Entypo } from "@expo/vector-icons";
@@ -17,6 +19,7 @@ import api from "../services/api";
 const PostingScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [image, setImage] = useState(null);
 
   async function post() {
     const postData = {
@@ -52,6 +55,24 @@ const PostingScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  async function chooseFromGallery() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage(result.uri);
+        alert(image);
+      } else {
+        alert("Cancelou imagem");
+      }
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.container}>
@@ -70,7 +91,7 @@ const PostingScreen = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.imageButton}
-          onPress={() => console.log("Imagem adicionada")}
+          onPress={() => chooseFromGallery()}
         >
           <Entypo name="image" size={24} color="#FFFFFF" />
           <Text style={styles.imageButtonText}>Adicionar Imagem</Text>
