@@ -10,8 +10,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   AsyncStorage,
+  Keyboard,
 } from "react-native";
-
+import api from "../services/api";
 import { width, height } from "../constants/dimensions";
 import CommentHeader from "../components/CommentHeader";
 
@@ -25,12 +26,24 @@ export default function CommentScreen({ route }) {
 
   async function loadUser() {
     const response = await AsyncStorage.getItem("user");
-    console.log(response);
+    setUser(response);
   }
   const data = [{ id: 1 }, { id: 2 }];
   console.log(route);
   const handleCommentSubmit = async () => {
-    alert("Botao clicado");
+    try {
+      const newPost = {
+        usuario: user,
+        texto: comment,
+        postagem: id,
+      };
+      await api.post("/comentarios/", newPost);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      Keyboard.dismiss();
+      setComment("");
+    }
   };
 
   return (
