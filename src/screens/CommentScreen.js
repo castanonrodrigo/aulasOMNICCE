@@ -54,6 +54,7 @@ export default function CommentScreen({ route }) {
       };
       const response = await api.post("/comentarios/", newPost);
       setCommentsList([...commentsList, response.data]);
+      setCount(count + 1);
     } catch (e) {
       Alert.alert("Seu comentário não foi postado :(");
     } finally {

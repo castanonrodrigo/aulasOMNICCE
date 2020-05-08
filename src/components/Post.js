@@ -5,12 +5,19 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { width, height } from "../constants/dimensions";
 
-const Post = ({ data, onFeed }) => {
+const Post = ({ data, onFeed, count }) => {
   const { usuario, titulo, texto, imagem } = data;
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.user}>{usuario}</Text>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.user}>{usuario} </Text>
+        {!onFeed && (
+          <Text style={[styles.user, { fontWeight: "normal" }]}>
+            {count === 1 ? `- ${count} comentário` : `- ${count} comentários`}
+          </Text>
+        )}
+      </View>
       <Text style={styles.title}>{titulo}</Text>
       <Text style={styles.text}>{texto}</Text>
       {imagem && (
