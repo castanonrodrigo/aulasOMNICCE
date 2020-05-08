@@ -11,6 +11,7 @@ import {
   Platform,
   AsyncStorage,
   Keyboard,
+  Alert,
 } from "react-native";
 import api from "../services/api";
 import { width, height } from "../constants/dimensions";
@@ -19,17 +20,29 @@ import CommentHeader from "../components/CommentHeader";
 export default function CommentScreen({ route }) {
   const [comment, setComment] = useState("");
   const [user, setUser] = useState("");
+  const [commentsList, setCommentsList] = useState(null);
+
   useEffect(() => {
     loadUser();
+    loadComments();
   }, []);
   const id = route.params.data.id;
+
+  async function loadComments() {
+    try {
+      const response = await api.get(`/postagens/${id}/comentarios/`);
+      setCommentsList(response.data.comentarios);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   async function loadUser() {
     const response = await AsyncStorage.getItem("user");
     setUser(response);
   }
   const data = [{ id: 1 }, { id: 2 }];
-  console.log(route);
+
   const handleCommentSubmit = async () => {
     try {
       const newPost = {
@@ -39,7 +52,7 @@ export default function CommentScreen({ route }) {
       };
       await api.post("/comentarios/", newPost);
     } catch (e) {
-      console.log(e);
+      Alert.alert("Seu comentário não foi postado :(");
     } finally {
       Keyboard.dismiss();
       setComment("");
@@ -54,10 +67,11 @@ export default function CommentScreen({ route }) {
     >
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={data}
+          data={commentsList}
           keyExtractor={(comment) => String(comment.id)}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<CommentHeader data={route.params.data} />}
+          renderItem={({ item }) => <Text>{item.texto}</Text>}
         />
         <View style={styles.inputContainer}>
           <TextInput
