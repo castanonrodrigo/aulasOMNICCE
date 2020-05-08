@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -9,6 +9,7 @@ import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
+  AsyncStorage,
 } from "react-native";
 
 import { width, height } from "../constants/dimensions";
@@ -16,10 +17,19 @@ import CommentHeader from "../components/CommentHeader";
 
 export default function CommentScreen({ route }) {
   const [comment, setComment] = useState("");
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    loadUser();
+  }, []);
+  const id = route.params.data.id;
 
+  async function loadUser() {
+    const response = await AsyncStorage.getItem("user");
+    console.log(response);
+  }
   const data = [{ id: 1 }, { id: 2 }];
   console.log(route);
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     alert("Botao clicado");
   };
 
@@ -34,7 +44,7 @@ export default function CommentScreen({ route }) {
           data={data}
           keyExtractor={(comment) => String(comment.id)}
           showsVerticalScrollIndicator={false}
-          ListHeaderComponent={CommentHeader}
+          ListHeaderComponent={<CommentHeader data={route.params.data} />}
         />
         <View style={styles.inputContainer}>
           <TextInput
