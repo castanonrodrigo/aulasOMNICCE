@@ -16,6 +16,7 @@ import {
 import api from "../services/api";
 import { width, height } from "../constants/dimensions";
 import CommentHeader from "../components/CommentHeader";
+import Comment from "../components/Comment";
 
 export default function CommentScreen({ route }) {
   const [comment, setComment] = useState("");
@@ -71,7 +72,7 @@ export default function CommentScreen({ route }) {
           keyExtractor={(comment) => String(comment.id)}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<CommentHeader data={route.params.data} />}
-          renderItem={({ item }) => <Text>{item.texto}</Text>}
+          renderItem={({ item }) => <Comment data={item} />}
         />
         <View style={styles.inputContainer}>
           <TextInput
