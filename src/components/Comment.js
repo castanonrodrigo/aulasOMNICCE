@@ -14,6 +14,8 @@ const Comment = ({ data }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: height * 0.014,
+    paddingLeft: width * 0.01,
     borderBottomColor: "gray",
     borderBottomWidth: height * 0.001,
     height: height * 0.09,
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: 10,
     fontSize: 16,
+    textAlign: "justify",
   },
 });
 

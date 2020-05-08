@@ -22,6 +22,7 @@ export default function CommentScreen({ route }) {
   const [comment, setComment] = useState("");
   const [user, setUser] = useState("");
   const [commentsList, setCommentsList] = useState(null);
+  const [count, setCount] = useState(null);
 
   useEffect(() => {
     loadUser();
@@ -33,6 +34,7 @@ export default function CommentScreen({ route }) {
     try {
       const response = await api.get(`/postagens/${id}/comentarios/`);
       setCommentsList(response.data.comentarios);
+      setCount(response.data.comentarios.length);
     } catch (e) {
       console.log(e);
     }
@@ -42,7 +44,6 @@ export default function CommentScreen({ route }) {
     const response = await AsyncStorage.getItem("user");
     setUser(response);
   }
-  const data = [{ id: 1 }, { id: 2 }];
 
   const handleCommentSubmit = async () => {
     try {
@@ -51,7 +52,8 @@ export default function CommentScreen({ route }) {
         texto: comment,
         postagem: id,
       };
-      await api.post("/comentarios/", newPost);
+      const response = await api.post("/comentarios/", newPost);
+      setCommentsList([...commentsList, response.data]);
     } catch (e) {
       Alert.alert("Seu comentário não foi postado :(");
     } finally {
@@ -71,7 +73,9 @@ export default function CommentScreen({ route }) {
           data={commentsList}
           keyExtractor={(comment) => String(comment.id)}
           showsVerticalScrollIndicator={false}
-          ListHeaderComponent={<CommentHeader data={route.params.data} />}
+          ListHeaderComponent={
+            <CommentHeader count={count} data={route.params.data} />
+          }
           renderItem={({ item }) => <Comment data={item} />}
         />
         <View style={styles.inputContainer}>
