@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -17,8 +17,9 @@ import api from "../services/api";
 import { width, height } from "../constants/dimensions";
 import CommentHeader from "../components/CommentHeader";
 import Comment from "../components/Comment";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function CommentScreen({ route }) {
+export default function CommentScreen({ route, navigation }) {
   const [comment, setComment] = useState("");
   const [user, setUser] = useState("");
   const [commentsList, setCommentsList] = useState(null);
@@ -27,6 +28,20 @@ export default function CommentScreen({ route }) {
   useEffect(() => {
     loadUser();
     loadComments();
+  }, []);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.pop()}>
+          <MaterialIcons name="arrow-back" size={35} color="#39cb7f" />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity onPress={loadComments}>
+          <MaterialCommunityIcons name="reload" size={35} color="#39cb7f" />
+        </TouchableOpacity>
+      ),
+    });
   }, []);
   const id = route.params.data.id;
 
